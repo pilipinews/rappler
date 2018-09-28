@@ -5,7 +5,7 @@ namespace Pilipinews\Website\Rappler;
 use Pilipinews\Common\Article;
 use Pilipinews\Common\Interfaces\ScraperInterface;
 use Pilipinews\Common\Scraper as AbstractScraper;
-use Symfony\Component\DomCrawler\Crawler;
+use Pilipinews\Common\Crawler as DomCrawler;
 
 /**
  * Rappler News Scraper
@@ -23,15 +23,22 @@ class Scraper extends AbstractScraper implements ScraperInterface
     /**
      * @var string[]
      */
-    protected $texts = array('Please refresh this page for updates.');
+    protected $texts = array(
+        "What's the weather like in your area? Report the situation through Rappler's Agos (http://agos.rappler.com/) or tweet us at @rapplerdotcom (https://twitter.com/rapplerdotcom).",
+        "Not on the list? Help us crowdsource class suspensions by posting in the comments section or tweeting @rapplerdotcom (https://twitter.com/rapplerdotcom).\n\nFor more information:  (https://www.facebook.com/gov.abet/posts/10152811185356858)When are classes cancelled or suspended? (https://www.rappler.com/move-ph/31299-classes-cancelled-suspended)",
+        "\n\nPlease refresh this page for updates."
+    );
 
     /**
      * Returns the contents of an article.
      *
+     * @param  string $link
      * @return \Pilipinews\Common\Article
      */
-    public function scrape()
+    public function scrape($link)
     {
+        $this->prepare(mb_strtolower($link));
+
         $title = $this->title('.select-headline');
 
         $this->remove((array) $this->removables);
@@ -44,6 +51,8 @@ class Scraper extends AbstractScraper implements ScraperInterface
 
         $body = $this->video($body);
 
+        $body = $this->tweet($body);
+
         $html = $this->html($body, $this->texts);
 
         return new Article($title, $html);
@@ -52,12 +61,12 @@ class Scraper extends AbstractScraper implements ScraperInterface
     /**
      * Converts image elements to readable string.
      *
-     * @param  \Symfony\Component\DomCrawler\Crawler $crawler
-     * @return \Symfony\Component\DomCrawler\Crawler
+     * @param  \Pilipinews\Common\Crawler $crawler
+     * @return \Pilipinews\Common\Crawler
      */
-    protected function image(Crawler $crawler)
+    protected function image(DomCrawler $crawler)
     {
-        $callback = function (Crawler $crawler, $html) {
+        $callback = function (DomCrawler $crawler, $html) {
             $image = $crawler->attr('data-original');
 
             return 'IMAGE: ' . (string) $image . "\n\n\n";
@@ -69,12 +78,12 @@ class Scraper extends AbstractScraper implements ScraperInterface
     /**
      * Converts embedded Scribd elements to readable string.
      *
-     * @param  \Symfony\Component\DomCrawler\Crawler $crawler
-     * @return \Symfony\Component\DomCrawler\Crawler
+     * @param  \Pilipinews\Common\Crawler $crawler
+     * @return \Pilipinews\Common\Crawler
      */
-    protected function scribd(Crawler $crawler)
+    protected function scribd(DomCrawler $crawler)
     {
-        $callback = function (Crawler $crawler, $html) {
+        $callback = function (DomCrawler $crawler, $html) {
             $title = (string) $crawler->attr('title');
 
             $link = (string) $crawler->attr('src');
@@ -90,12 +99,12 @@ class Scraper extends AbstractScraper implements ScraperInterface
     /**
      * Converts embedded iframe elements to readable string.
      *
-     * @param  \Symfony\Component\DomCrawler\Crawler $crawler
-     * @return \Symfony\Component\DomCrawler\Crawler
+     * @param  \Pilipinews\Common\Crawler $crawler
+     * @return \Pilipinews\Common\Crawler
      */
-    protected function video(Crawler $crawler)
+    protected function video(DomCrawler $crawler)
     {
-        $callback = function (Crawler $crawler, $html) {
+        $callback = function (DomCrawler $crawler, $html) {
             return '<p>VIDEO: ' . $crawler->attr('src') . '</p>';
         };
 

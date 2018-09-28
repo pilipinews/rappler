@@ -3,8 +3,8 @@
 namespace Pilipinews\Website\Rappler;
 
 use Pilipinews\Common\Client;
+use Pilipinews\Common\Crawler as DomCrawler;
 use Pilipinews\Common\Interfaces\CrawlerInterface;
-use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 
 /**
  * Rappler News Crawler
@@ -38,12 +38,14 @@ class Crawler implements CrawlerInterface
     {
         $base = 'https://www.rappler.com';
 
-        $excluded = function ($text) {
+        $excluded = $this->excluded;
+
+        $excluded = function ($text) use ($excluded) {
             preg_match('/(.*):(.*)/i', $text, $matches);
 
             $keyword = isset($matches[1]) ? $matches[1] : null;
 
-            return in_array($keyword, $this->excluded);
+            return in_array($keyword, (array) $excluded);
         };
 
         $callback = function (DomCrawler $node) use ($base, $excluded) {

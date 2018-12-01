@@ -10,7 +10,7 @@ use Pilipinews\Common\Interfaces\CrawlerInterface;
  * Rappler News Crawler
  *
  * @package Pilipinews
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class Crawler implements CrawlerInterface
 {
@@ -27,7 +27,7 @@ class Crawler implements CrawlerInterface
     /**
      * @var string
      */
-    protected $pattern = '#article-finder-result > .rappler-light-gray h4 > a';
+    protected $pattern = '#article-finder-result > .rappler-light-gray h3 > a';
 
     /**
      * Returns an array of articles to scrape.

@@ -11,7 +11,7 @@ use Pilipinews\Common\Crawler as DomCrawler;
  * Rappler News Scraper
  *
  * @package Pilipinews
- * @author  Rougin Royce Gutib <rougingutib@gmail.com>
+ * @author  Rougin Gutib <rougingutib@gmail.com>
  */
 class Scraper extends AbstractScraper implements ScraperInterface
 {
@@ -66,13 +66,24 @@ class Scraper extends AbstractScraper implements ScraperInterface
      */
     protected function image(DomCrawler $crawler)
     {
-        $callback = function (DomCrawler $crawler, $html) {
-            $image = $crawler->attr('data-original');
+        $callback = function (DomCrawler $crawler, $html)
+        {
+            $image = $crawler->previousAll()->first();
 
-            return 'IMAGE: ' . (string) $image . "\n\n\n";
+            $photo = $image->filter('img')->attr('data-original');
+
+            $node = $image->getNode((integer) 0);
+
+            $node->parentNode->removeChild($node);
+
+            $text = ' - ' . $crawler->first()->text();
+
+            $text = $text === ' -  ' ? '' : $text;
+
+            return '<p>PHOTO: ' . $photo . $text . '</p>';
         };
 
-        return $this->replace($crawler, 'img', $callback);
+        return $this->replace($crawler, 'p.caption', $callback);
     }
 
     /**
@@ -83,7 +94,8 @@ class Scraper extends AbstractScraper implements ScraperInterface
      */
     protected function scribd(DomCrawler $crawler)
     {
-        $callback = function (DomCrawler $crawler, $html) {
+        $callback = function (DomCrawler $crawler, $html)
+        {
             $title = (string) $crawler->attr('title');
 
             $link = (string) $crawler->attr('src');
@@ -104,7 +116,8 @@ class Scraper extends AbstractScraper implements ScraperInterface
      */
     protected function video(DomCrawler $crawler)
     {
-        $callback = function (DomCrawler $crawler, $html) {
+        $callback = function (DomCrawler $crawler, $html)
+        {
             return '<p>VIDEO: ' . $crawler->attr('src') . '</p>';
         };
 

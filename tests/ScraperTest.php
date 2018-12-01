@@ -36,7 +36,8 @@ class ScraperTest extends \PHPUnit_Framework_TestCase
 
         $items = array();
 
-        foreach ((array) $files as $file) {
+        foreach ((array) $files as $file)
+        {
             $expected = $this->expected($file);
 
             $url = $this->link((string) $file);

@@ -40,7 +40,8 @@ class Crawler implements CrawlerInterface
 
         $excluded = $this->excluded;
 
-        $excluded = function ($text) use ($excluded) {
+        $excluded = function ($text) use ($excluded)
+        {
             preg_match('/(.*):(.*)/i', $text, $matches);
 
             $keyword = isset($matches[1]) ? $matches[1] : null;
@@ -48,7 +49,8 @@ class Crawler implements CrawlerInterface
             return in_array($keyword, (array) $excluded);
         };
 
-        $callback = function (DomCrawler $node) use ($base, $excluded) {
+        $callback = function (DomCrawler $node) use ($base, $excluded)
+        {
             $items = explode('/', $link = $node->attr('href'));
 
             $allowed = $items[1] === 'nation' && ! $excluded($node->text());

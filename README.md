@@ -9,19 +9,19 @@
 
 Crawler and scraper for [Rappler News](https://www.rappler.com/) website.
 
-## Install
+## Installation
 
-Install Rappler News via [Composer](https://getcomposer.org):
+Install `Rappler News` via [Composer](https://getcomposer.org/):
 
 ``` bash
 $ composer require pilipinews/rappler
 ```
 
-## Usage
+## Basic Usage
 
 Coming soon.
 
-## Change Log
+## Changelog
 
 Please see [CHANGELOG][link-changelog] for more information what has changed recently.
 
@@ -39,12 +39,12 @@ $ composer test
 
 The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/pilipinews/rappler.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/pilipinews/rappler/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/pilipinews/rappler.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/pilipinews/rappler.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/pilipinews/rappler.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/pilipinews/rappler.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/pilipinews/rappler/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/pilipinews/rappler.svg?style=flat-square
 
 [link-changelog]: https://github.com/pilipinews/rappler/blob/master/CHANGELOG.md
 [link-code-quality]: https://scrutinizer-ci.com/g/pilipinews/rappler

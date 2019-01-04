@@ -7,8 +7,6 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Crawler and scraper for [Rappler News](https://www.rappler.com/) website.
-
 ## Installation
 
 Install `Rappler News` via [Composer](https://getcomposer.org/):
@@ -16,10 +14,6 @@ Install `Rappler News` via [Composer](https://getcomposer.org/):
 ``` bash
 $ composer require pilipinews/rappler
 ```
-
-## Basic Usage
-
-Coming soon.
 
 ## Changelog
 

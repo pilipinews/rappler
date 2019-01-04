@@ -55,7 +55,7 @@ class Scraper extends AbstractScraper implements ScraperInterface
 
         $html = $this->html($body, $this->texts);
 
-        return new Article($title, $html);
+        return new Article($title, $html, $link);
     }
 
     /**

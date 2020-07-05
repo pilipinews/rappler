@@ -55,6 +55,8 @@ class Scraper extends AbstractScraper implements ScraperInterface
 
         $html = $this->html($body, $this->texts);
 
+        $html = htmlspecialchars_decode($html);
+
         return new Article($title, $html, $link);
     }
 
@@ -76,9 +78,10 @@ class Scraper extends AbstractScraper implements ScraperInterface
 
             $node->parentNode->removeChild($node);
 
-            $text = ' - ' . $crawler->first()->text();
-
-            $text = $text === ' -  ' ? '' : $text;
+            if ($text = $crawler->first()->text())
+            {
+                $text = ' - ' . $text;
+            }
 
             return '<p>PHOTO: ' . $photo . $text . '</p>';
         };

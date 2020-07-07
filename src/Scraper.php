@@ -78,7 +78,7 @@ class Scraper extends AbstractScraper implements ScraperInterface
 
             $node->parentNode->removeChild($node);
 
-            if ($text = $crawler->first()->text())
+            if ($text = trim($crawler->first()->text()))
             {
                 $text = ' - ' . $text;
             }

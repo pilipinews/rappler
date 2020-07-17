@@ -60,8 +60,12 @@ class Crawler implements CrawlerInterface
 
         $crawler = new DomCrawler(Client::request($this->link));
 
-        $news = $crawler->filter($this->pattern);
+        $news = $crawler->filter((string) $this->pattern);
 
-        return array_reverse(array_filter($news->each($callback)));
+        $filtered = array_filter($news->each($callback));
+
+        $reversed = array_reverse($filtered);
+
+        return array_values(array_unique($filtered));
     }
 }

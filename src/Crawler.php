@@ -22,12 +22,12 @@ class Crawler implements CrawlerInterface
     /**
      * @var string
      */
-    protected $link = 'https://www.rappler.com/previous-articles/';
+    protected $link = 'https://rappler.com/section/nation';
 
     /**
      * @var string
      */
-    protected $pattern = '#article-finder-result > .rappler-light-gray h3 > a';
+    protected $pattern = '.A__DefaultLink-sc-120nwt8-0.eqXhhw';
 
     /**
      * Returns an array of articles to scrape.
@@ -36,7 +36,7 @@ class Crawler implements CrawlerInterface
      */
     public function crawl()
     {
-        $base = 'https://www.rappler.com';
+        $base = 'https://rappler.com';
 
         $excluded = $this->excluded;
 

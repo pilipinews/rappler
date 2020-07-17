@@ -39,11 +39,11 @@ class Scraper extends AbstractScraper implements ScraperInterface
     {
         $this->prepare(mb_strtolower($link));
 
-        $title = $this->title('.select-headline');
+        $title = $this->title('h1');
 
         $this->remove((array) $this->removables);
 
-        $body = $this->body('.storypage-divider');
+        $body = $this->body('.ArticleWrapper__ArticleBodyWrapper-sc-36pn73-0');
 
         $body = $this->image($body);
 
